@@ -1,0 +1,68 @@
+const { User } = require('../db.js')
+const { Sequelize, Op } = require('sequelize')
+const unorm = require('unorm')
+
+const createUser = async ({uid, displayName, email, photoURL}) => {
+  console.log('controler de user', uid, displayName, email, photoURL)
+  try {
+    const [user, created] = await User.findOrCreate({
+      where: {
+        uid
+      },
+      defaults: {
+        uid,
+        displayName,
+        email,
+        photoURL
+      }    
+    })
+    if (!created) {
+      return 'El usuario ya existe', user
+    }else{
+      return `El usuario ${displayName} ha sido guardado con éxito `
+    }
+  } catch (error) {
+    console.error('Error al registrar usuario:', error);
+    throw error
+  }
+}
+
+const getAllUsers = async () => {
+  try {
+    const users = await User.findAll()
+    return users
+  } catch (error) {
+    console.error('Error al obtener usuarios:', error);
+    throw error
+  }
+}
+
+// const normalizeString = (str) => unorm.nfkd(str).replace(/[^\w\s@]/gi, '');
+
+const getUserByEmail = async (email) => {
+  try {
+    // const normalizeEmail = normalizeString(email)
+    // console.log('soy el user de controller', normalizeEmail)
+    const user = await User.findOne({
+      where: {
+        email: {
+          // [Op.iLike]: `%${normalizeEmail}%`
+          [Op.eq]: email
+        }
+      }
+    })
+    if (!user) {
+      throw new Error(`No existe un usuario con el email ${email}`);
+    }
+
+    console.log('user del controller', user);
+    return user;
+    
+  } catch (error) {
+    console.error('Error al obtener usuario por nombre:', error);
+    throw error
+  }
+}
+
+
+module.exports = { createUser, getAllUsers, getUserByEmail }
