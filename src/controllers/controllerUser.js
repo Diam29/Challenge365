@@ -37,16 +37,15 @@ const getAllUsers = async () => {
   }
 }
 
-// const normalizeString = (str) => unorm.nfkd(str).replace(/[^\w\s@]/gi, '');
+
 
 const getUserByEmail = async (email) => {
   try {
-    // const normalizeEmail = normalizeString(email)
-    // console.log('soy el user de controller', normalizeEmail)
+   
     const user = await User.findOne({
       where: {
         email: {
-          // [Op.iLike]: `%${normalizeEmail}%`
+         
           [Op.eq]: email
         }
       }
