@@ -2,7 +2,7 @@ const express = require('express');
 const payRouter = express.Router();
 const {createPaymentHandler, getAllPaymentHandler, putPaymentHandler, deletePaymentHandler, getPaymentHandler, getPaymentRecipientHandler, getPaymentTypeHandler, getPaymentDateHandler } = require('../handlers/handlerPayment.js');
 
-payRouter.get('/', getAllPaymentHandler)
+payRouter.get('/:id', getAllPaymentHandler)
 payRouter.post('/', createPaymentHandler) 
 payRouter.put('/:id', putPaymentHandler)
 payRouter.delete('/:id', deletePaymentHandler)

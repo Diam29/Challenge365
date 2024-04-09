@@ -2,7 +2,7 @@ const { User } = require('../db.js')
 const { Sequelize, Op } = require('sequelize')
 const unorm = require('unorm')
 
-const createUser = async ({uid, displayName, email, photoURL}) => {
+const createUser = async ({ uid, displayName, email, photoURL }) => {
   console.log('controler de user', uid, displayName, email, photoURL)
   try {
     const [user, created] = await User.findOrCreate({
@@ -14,11 +14,11 @@ const createUser = async ({uid, displayName, email, photoURL}) => {
         displayName,
         email,
         photoURL
-      }    
+      }
     })
     if (!created) {
       return 'El usuario ya existe', user
-    }else{
+    } else {
       return `El usuario ${displayName} ha sido guardado con éxito `
     }
   } catch (error) {
@@ -41,11 +41,11 @@ const getAllUsers = async () => {
 
 const getUserByEmail = async (email) => {
   try {
-   
+
     const user = await User.findOne({
       where: {
         email: {
-         
+
           [Op.eq]: email
         }
       }
@@ -56,7 +56,7 @@ const getUserByEmail = async (email) => {
 
     console.log('user del controller', user);
     return user;
-    
+
   } catch (error) {
     console.error('Error al obtener usuario por nombre:', error);
     throw error

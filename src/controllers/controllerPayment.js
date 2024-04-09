@@ -3,9 +3,15 @@ const { Sequelize, Op } = require('sequelize');
 // const moment = require('moment')
 
 // BUSCAR TODOS LOS PAGOS
-const getAllPayments = async () => {
+const getAllPayments = async (uid) => {
   try {
-    const payments = await Payments.findAll()
+    const payments = await Payments.findAll(
+      {
+        where: {
+          uid: uid
+        }
+      }
+    )
     return payments
   } catch (error) {
     console.error('Error al obtener pagos:', error);

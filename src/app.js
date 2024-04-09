@@ -1,22 +1,20 @@
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
-// const httpProxy = require('http-proxy');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const routes = require('./routes/index.js');
 
+require('./db.js')
 const app = express();
-app.use(morgan('dev'));
-app.use(cors());
-app.use(express.json());
+// app.use(express.json());
 
 app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(cookieParser());
 app.use(morgan('dev'));
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'http://localhost:5173'); // update to match the domain you will make the request from
+  res.header('Access-Control-Allow-Origin', '*'); 
   res.header('Access-Control-Allow-Credentials', 'true');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
@@ -24,6 +22,11 @@ app.use((req, res, next) => {
 });
 
 app.use('/', routes);
+
+app.use(cors({
+  origin: 'https://challenge365-front.vercel.app/',
+  credentials: true
+}))
 
 // const proxy = httpProxy.createProxyServer();
 

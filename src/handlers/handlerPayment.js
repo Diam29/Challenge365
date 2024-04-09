@@ -4,10 +4,10 @@ const { Payments } = require('../db.js');
 
 // OBTENER TODOS LOS PAGOS
 const getAllPaymentHandler = async (req, res) => {
-  const { type } = req.params
+  const { uid } = req.params
+  console.log('soy handller payment id',uid)
   try {
-    const payments = await getAllPayments(type)
-    console.log('hanlder', payments)
+    const payments = await getAllPayments(uid)
     res.status(200).json(payments)
   } catch (error) {
     console.error(error || 'Error al obtener pagos');
