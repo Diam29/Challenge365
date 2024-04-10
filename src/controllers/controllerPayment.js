@@ -8,10 +8,11 @@ const getAllPayments = async (uid) => {
     const payments = await Payments.findAll(
       {
         where: {
-          uid: uid
+          uid:uid,
         }
       }
     )
+    console.log('soy uid', uid)
     return payments
   } catch (error) {
     console.error('Error al obtener pagos:', error);
@@ -23,6 +24,7 @@ const getAllPayments = async (uid) => {
 const createPayment = async ({ recipient, amount, date, description, type, uid}) => {
   try {
     const newPayment = await Payments.create({ recipient, amount, date, description, type, uid })
+    console.log('soy newPayment', newPayment)
     return newPayment
   } catch (error) {
     console.error('Error al crear pago: desde controler', error);
@@ -32,17 +34,17 @@ const createPayment = async ({ recipient, amount, date, description, type, uid})
 
 
 // BORRAR UN PAGO
-const deletePayment = async (id) => {
+const deletePayment = async (uid) => {
   try {
     const deleted = await Payments.destroy({
       where: {
-        id
+        id: uid
       }
     })
     if (deleted === 0) {
-      throw new Error(`No se pudo borrar el pago con id ${id}`)
+      throw new Error(`No se pudo borrar el pago con id ${uid}`)
     }
-    return `Se elimino el pago con id ${id}`
+    return `Se elimino el pago con id ${uid}`
   } catch (error) {
     console.error('Error al borrar pago:', error);
     throw error

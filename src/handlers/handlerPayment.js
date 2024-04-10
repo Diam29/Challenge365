@@ -22,6 +22,7 @@ const createPaymentHandler = async (req, res) => {
   if (!recipient || !amount || !date || !description || !type || !uid) {
     return res.status(400).json({ error: 'Todos los campos son obligatorios' })
   }
+  console.log('soy handler', recipient, amount, date, description, type, uid)
 
   try {
     const newPayment = await createPayment({
