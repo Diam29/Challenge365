@@ -80,6 +80,7 @@ Users.hasMany(Payments, {
   foreignKey: 'uid',
   sourceKey: 'uid'
 });
+
 Payments.belongsTo(Users, {
   foreignKey: 'uid',
   targetKey: 'uid'

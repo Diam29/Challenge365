@@ -27,19 +27,6 @@ app.use(cors({
   credentials: true
 }))
 
-// const proxy = httpProxy.createProxyServer();
-
-// app.all('/*', (req, res) => {
-//     process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-
-//     proxy.web(req, res, { target: 'http://localhost:5173/' });
-// });
-
-// proxy.on('error', (err, req, res) => {
-//     // Manejo de errores personalizado
-//     console.error(err);
-//     res.status(500).send('Error en el servidor');
-// });
 
 
 module.exports = app;
