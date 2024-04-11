@@ -7,10 +7,6 @@ const {
     DB_USER, DB_PASSWORD, DB_HOST, DB_PORT, DB_NAME
 } = process.env;
 
-// const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`, {
-//     logging: false,
-//     native: false
-// });
 
 const sequelize = new Sequelize({
   dialect: 'postgres',
@@ -37,13 +33,6 @@ const sequelize = new Sequelize({
 
 const basename = path.basename(__filename);
 
-// const modelDefiners = []
-// viejo
-// fs.readdirSync(path.join(__dirname, '/models'))
-//     .filter((file) => (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js'))
-//     .forEach((file) => {
-//         modelDefiners.push(require(path.join(__dirname, '/models', file)));
-//     });
 
 fs.readdirSync(path.join(__dirname, '/models'))
 .filter((file)=>{
@@ -52,17 +41,13 @@ fs.readdirSync(path.join(__dirname, '/models'))
 })
 
 
-// viejo
-
-// modelDefiners.forEach(modelDefiner => modelDefiner(sequelize));
 
 const entries = Object.entries(sequelize.models);
 const capsEntries = entries.map((entry) => [entry[0][0].toUpperCase() + entry[0].slice(1), entry[1]]);
 sequelize.models = Object.fromEntries(capsEntries);
 
 
-// const { User, Payments } = sequelize.models
-const { User } = sequelize.models
+const { Users } = sequelize.models
 const { Payments } = sequelize.models
 
 const { Pool } = require('pg')
@@ -91,15 +76,15 @@ pool.on('error', (err)=>{
   console.error('Error al conectar con la base de datos', err)
 })
 
-User.hasMany(Payments, {
+Users.hasMany(Payments, {
   foreignKey: 'uid',
   sourceKey: 'uid'
 });
-Payments.belongsTo(User, {
+Payments.belongsTo(Users, {
   foreignKey: 'uid',
   targetKey: 'uid'
 });
 
 
 
-module.exports = { ...sequelize.models, Payments, User, conn: sequelize };
+module.exports = { ...sequelize.models, Payments, Users, conn: sequelize };

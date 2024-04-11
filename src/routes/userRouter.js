@@ -7,7 +7,6 @@ userRouter.post('/createUser', createUserHandler);
 userRouter.get('/', getAllUserHandler); 
 userRouter.get('/email',getUserByEmailHandler);
 
-// userRouter.put('/:id', putUser); // Modificar un usuario por ID
-// userRouter.delete('/:id', deleteUser); // Borrar un usuario por ID
+
 
 module.exports = userRouter

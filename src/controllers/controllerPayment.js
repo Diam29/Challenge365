@@ -1,4 +1,4 @@
-const {Payments} = require('../db.js')
+const { Payments } = require('../db.js')
 const { Sequelize, Op } = require('sequelize');
 // const moment = require('moment')
 

@@ -1,11 +1,11 @@
-const { User } = require('../db.js')
+const { Users } = require('../db.js')
 const { Sequelize, Op } = require('sequelize')
 const unorm = require('unorm')
 
 const createUser = async ({ uid, displayName, email, photoURL }) => {
   console.log('controler de user', uid, displayName, email, photoURL)
   try {
-    const [user, created] = await User.findOrCreate({
+    const [user, created] = await Users.findOrCreate({
       where: {
         uid
       },
@@ -29,7 +29,7 @@ const createUser = async ({ uid, displayName, email, photoURL }) => {
 
 const getAllUsers = async () => {
   try {
-    const users = await User.findAll()
+    const users = await Users.findAll()
     return users
   } catch (error) {
     console.error('Error al obtener usuarios:', error);
@@ -42,7 +42,7 @@ const getAllUsers = async () => {
 const getUserByEmail = async (email) => {
   try {
 
-    const user = await User.findOne({
+    const user = await Users.findOne({
       where: {
         email: {
 
