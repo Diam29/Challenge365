@@ -22,10 +22,10 @@ app.use((req, res, next) => {
 
 app.use('/', routes);
 
-app.use(cors({
-  origin: 'https://challenge365-front.vercel.app/',
-  credentials: true
-}))
+// app.use(cors({
+//   origin: 'https://challenge365-front.vercel.app/',
+//   credentials: true
+// }))
 
 
 

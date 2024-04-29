@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
-sequelize.define('Users', {
+sequelize.define('Psicologos', {
     uid: {
       type: DataTypes.STRING,
       primaryKey: true,
@@ -18,7 +18,10 @@ sequelize.define('Users', {
     photoURL: {
       type: DataTypes.STRING,
     },
-  }
+  },
+    {
+      timestamps: false
+    }
   );
 };
 

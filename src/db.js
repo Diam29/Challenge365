@@ -47,8 +47,8 @@ const capsEntries = entries.map((entry) => [entry[0][0].toUpperCase() + entry[0]
 sequelize.models = Object.fromEntries(capsEntries);
 
 
-const { Users } = sequelize.models
-const { Payments } = sequelize.models
+const { Psicologos } = sequelize.models
+const { Pacientes } = sequelize.models
 
 const { Pool } = require('pg')
 
@@ -76,16 +76,16 @@ pool.on('error', (err)=>{
   console.error('Error al conectar con la base de datos', err)
 })
 
-Users.hasMany(Payments, {
+Psicologos.hasMany(Pacientes, {
   foreignKey: 'uid',
   sourceKey: 'uid'
 });
 
-Payments.belongsTo(Users, {
+Pacientes.belongsTo(Psicologos, {
   foreignKey: 'uid',
   targetKey: 'uid'
 });
 
 
 
-module.exports = { ...sequelize.models, Payments, Users, conn: sequelize };
+module.exports = { ...sequelize.models, Psicologos, Pacientes, conn: sequelize };

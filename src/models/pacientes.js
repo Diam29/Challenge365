@@ -1,36 +1,46 @@
+const { Timestamp } = require('firebase/firestore');
 const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
-sequelize.define('Payments', {
+  sequelize.define('Pacientes', {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
       allowNull: false
     },
-    amount: {
+    pago: {
       type: DataTypes.FLOAT,
       allowNull: false
     },
-    date: {
-      type: DataTypes.DATE,
+    fecha: {
+      type: DataTypes.DATEONLY,
       allowNull: false,
-      get() {
-        const date = this.getDataValue('date');
-        return date ? `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}` : null;
-      }
     },
-    description: {
+    descripcion: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    type: {
+    tipoPago: {
       type: DataTypes.ENUM('transferencia', 'tarjeta de crédito', 'débito automático'),
       allowNull: false
     },
-    recipient: {
+    psicologo: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    uid: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      references: {
+        model: 'Psicologos',
+        key: 'uid'
+      }
     }
-  });
+  },
+    {
+      timestamps: false
+    }
+  );
+
 };

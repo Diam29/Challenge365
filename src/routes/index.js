@@ -1,11 +1,11 @@
 const { Router } = require('express');
-const userRouter = require('./userRouter.js')
-const payRouter = require('./payRouter.js')
+const psicoRouter = require('./psicoRouter.js')
+const pacienteRouter = require('./pacienteRouter.js')
 
 const router = Router();
 
-router.use('/user', userRouter)
-router.use('/pay', payRouter)
+router.use('/psico', psicoRouter)
+router.use('/paciente', pacienteRouter)
 
 
 module.exports = router;
